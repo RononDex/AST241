@@ -10,14 +10,23 @@ import csv
 import math
 import matplotlib.pyplot as plt
 from decimal import *
+from sympy import symbols
+from sympy import Pow
 
 # Constants
-GRAVITATIONAL_CONSTANT = Decimal(6.67408e-11)
+GRAVITATIONAL_CONSTANT = 6.67408e-11
 
 # Correction factors to get SI dimensions
-MASS_FACTOR = Decimal(1.898e27)
-ORBITAL_PERIOD_FACTOR = Decimal(86400)
-SEMI_MAJOR_AXIS_FACTOR = Decimal(149597870700)
+MASS_FACTOR = 1.898e27
+ORBITAL_PERIOD_FACTOR = 86400
+SEMI_MAJOR_AXIS_FACTOR = 149597870700
+
+# Dimensions
+kg, M_jup, s, day, AU, m, G = symbols("kg M_jup s day AU m G")
+M_jup = MASS_FACTOR * kg
+day = ORBITAL_PERIOD_FACTOR * s
+AU = SEMI_MAJOR_AXIS_FACTOR * m
+G = GRAVITATIONAL_CONSTANT * m**3 * kg**-1 * s**-2
 
 # Calculates the mass given the formula from the lectures and returns it
 def CalcMassFromOrbit(row):
@@ -26,13 +35,13 @@ def CalcMassFromOrbit(row):
     global ORBITAL_PERIOD_FACTOR
     global SEMI_MAJOR_AXIS_FACTOR
 
-    orbital_period = row["orbital_period"]
-    semi_major_axis = row["semi_major_axis"]
+    orbital_period = float(row["orbital_period"]) * day
+    semi_major_axis = float(row["semi_major_axis"]) * AU
 
     # What a long formula. Due to the syntax of python it's not possible to break it into several lines (wihtout doing more steps)
     # well I guess I need to buy a new widescreen monitor
-    mass = Decimal(8) * Decimal(math.pow(Decimal(math.pi),3)) * Decimal(math.pow(Decimal(semi_major_axis) * SEMI_MAJOR_AXIS_FACTOR, 3)) / (GRAVITATIONAL_CONSTANT * Decimal(math.pow(Decimal(orbital_period) * ORBITAL_PERIOD_FACTOR, 3)))
-    return float(mass / MASS_FACTOR)
+    mass = 4 * math.pow(math.pi,2) * semi_major_axis**3 / (G * orbital_period**2)
+    return float(mass / M_jup)
  
 # Gets the data for the figure
 def GetData(reader):
