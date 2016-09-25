@@ -38,8 +38,7 @@ def CalcMassFromOrbit(row):
     orbital_period = float(row["orbital_period"]) * day
     semi_major_axis = float(row["semi_major_axis"]) * AU
 
-    # What a long formula. Due to the syntax of python it's not possible to break it into several lines (wihtout doing more steps)
-    # well I guess I need to buy a new widescreen monitor
+    # This is where the magic happens
     mass = 4 * math.pow(math.pi,2) * semi_major_axis**3 / (G * orbital_period**2)
     return float(mass / M_jup)
  
