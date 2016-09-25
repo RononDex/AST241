@@ -1,5 +1,6 @@
 # ---------------------------------------------------------------------------
 # Compares the observed mass of exoplanets vs the calculated mass
+# Written with Python 3.5 (Anaconda)
 #
 # Modul:   AST241
 # Author:  Tino Heuberger
@@ -22,8 +23,9 @@ ORBITAL_PERIOD_FACTOR = 86400
 SEMI_MAJOR_AXIS_FACTOR = 149597870700
 
 # Dimensions
-kg, M_jup, s, day, AU, m, G = symbols("kg M_jup s day AU m G")
+kg, M_jup, M_solar, s, day, AU, m, G = symbols("kg M_jup M_solar s day AU m G")
 M_jup = MASS_FACTOR * kg
+M_solar = 1047.56 * M_jup
 day = ORBITAL_PERIOD_FACTOR * s
 AU = SEMI_MAJOR_AXIS_FACTOR * m
 G = GRAVITATIONAL_CONSTANT * m**3 * kg**-1 * s**-2
@@ -40,7 +42,7 @@ def CalcMassFromOrbit(row):
 
     # This is where the magic happens
     mass = 4 * math.pow(math.pi,2) * semi_major_axis**3 / (G * orbital_period**2)
-    return float(mass / M_jup)
+    return float(mass / M_solar)
  
 # Gets the data for the figure
 def GetData(reader):
@@ -48,9 +50,9 @@ def GetData(reader):
     givenMasses = []
 
     for row in reader:
-        if (row["orbital_period"] != "" and row["semi_major_axis"] != "" and row["mass"] != ""):
+        if (row["orbital_period"] != "" and row["semi_major_axis"] != "" and row["star_mass"] != ""):
             calculatedMasses.append(CalcMassFromOrbit(row))
-            givenMasses.append(float(row["mass"]))
+            givenMasses.append(float(row["star_mass"]))
 
     return calculatedMasses, givenMasses
 
@@ -58,8 +60,10 @@ def GetData(reader):
 def CreatePlot(data):
     x, y = GetData(data)
     plt.scatter(x, y)
-    plt.xlabel("Calculated Mass [$\M_Jup]")
-    plt.ylabel("Mass given by data [$\M_Jup]")
+    plt.xlabel("Calculated host star mass [$M_Sol$]")
+    plt.ylabel("Host star mass given by data [$M_Sol$]")
+    plt.ylim(0,5)
+    plt.xlim(0,5)
     plt.show()
 
 # Entry point
