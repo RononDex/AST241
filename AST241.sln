@@ -5,6 +5,8 @@ VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "1_ExoplanetMasses", "1_PlanetMassesVsOrbit\1_ExoplanetMasses.pyproj", "{360C0EAB-5B6C-4053-B2BE-500332693E22}"
 EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "2_ConeOrbits", "2_ConeOrbits\2_ConeOrbits.pyproj", "{2248DF2E-AAF3-4513-9382-65B08202BEE9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,8 @@ Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{360C0EAB-5B6C-4053-B2BE-500332693E22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{360C0EAB-5B6C-4053-B2BE-500332693E22}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2248DF2E-AAF3-4513-9382-65B08202BEE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2248DF2E-AAF3-4513-9382-65B08202BEE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
